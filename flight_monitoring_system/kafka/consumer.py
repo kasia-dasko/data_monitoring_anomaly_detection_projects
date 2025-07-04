@@ -16,7 +16,8 @@ MAX_SPEED = 500
 
 print("Kafka consumer started. Waiting for data...")
 
-CSV_FILE = 'flight_data.csv'
+CSV_FILE = os.path.abspath('flight_data.csv')
+print(f"CSV file will be created at: {CSV_FILE}")
 
 if not os.path.isfile(CSV_FILE):
     with open(CSV_FILE, mode='w', newline='') as f:
@@ -29,21 +30,27 @@ for message in consumer:
     speed = data.get('speed')
     timestamp = data.get('timestamp')
 
-    alert = ""
+    alert_messages = []
 
     print(f"Received: Altitude={altitude:.1f} ft | Speed={speed:.1f} knots")
 
     if altitude < MIN_ALTITUDE:
+        alert_messages.append("Altitude below safe threshold")
         print("ALERT: Altitude below safe threshold!")
     elif altitude > MAX_ALTITUDE:
+        alert_messages.append("Altitude above safe threshold")
         print("ALERT: Altitude above safe threshold!")
 
     if speed < MIN_SPEED:
+        alert_messages.append("Speed below safe threshold")
         print("ALERT: Speed below safe threshold!")
     elif speed > MAX_SPEED:
+        alert_messages.append("Speed above safe threshold")
         print("ALERT: Speed above safe threshold!")
 
-with open(CSV_FILE, mode='a', newline='') as f:
+    alert = "; ".join(alert_messages) if alert_messages else "No alert"
+
+    with open(CSV_FILE, mode='a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([timestamp, altitude, speed, alert])
     
