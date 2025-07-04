@@ -4,9 +4,9 @@ The Flight Monitoring System is an entry-level project demonstrating the use of 
 
 **Technologies used:**
 
--Python – main programming language
--Apache Kafka – real-time data streaming platform
--Streamlit – for building the interactive dashboard
+1. Python – main programming language
+2. Apache Kafka – real-time data streaming platform
+3. Streamlit – for building the interactive dashboard
 
 **How to run the project**
 
