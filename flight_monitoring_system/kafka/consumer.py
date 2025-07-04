@@ -3,7 +3,7 @@ import json
 
 consumer = KafkaConsumer(
     'flight_data',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers='localhost:29092',
     value_deserializer=lambda m: json.loads(m.decode('utf-8'))
 )
 

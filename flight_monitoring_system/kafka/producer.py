@@ -4,7 +4,7 @@ import time
 import random
 
 KAFKA_TOPIC = 'flight_data'
-KAFKA_BROKER = 'localhost:9092'
+KAFKA_BROKER = 'localhost:29092'
 
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER,
